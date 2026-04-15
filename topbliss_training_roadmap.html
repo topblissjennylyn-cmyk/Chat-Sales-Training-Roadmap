@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TopBliss — Agent Training Roadmap 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-50: #EAF3DE; --green-100: #C0DD97; --green-200: #97C459;
+    --green-600: #3B6D11; --green-700: #2e5a0d; --green-800: #27500A;
+    --teal-50: #E1F5EE; --teal-100: #9FE1CB; --teal-600: #0F6E56;
+    --amber-50: #FAEEDA; --amber-100: #FAC775; --amber-600: #854F0B;
+    --purple-50: #EEEDFE; --purple-100: #CECBF6; --purple-600: #534AB7;
+    --coral-50: #FAECE7; --coral-100: #F5C4B3; --coral-600: #993C1D;
+    --blue-50: #E6F1FB; --blue-100: #B5D4F4; --blue-600: #185FA5;
+    --gray-50: #F1EFE8; --gray-100: #D3D1C7; --gray-400: #888780; --gray-600: #5F5E5A;
+
+    --bg: #FAFAF8;
+    --surface: #FFFFFF;
+    --surface-2: #F4F3EF;
+    --border: rgba(0,0,0,0.1);
+    --border-mid: rgba(0,0,0,0.15);
+    --text: #1A1A18;
+    --text-2: #5F5E5A;
+    --text-3: #888780;
+    --radius: 10px;
+    --radius-lg: 14px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 60px;
+  }
+
+  .logo {
+    width: 34px; height: 34px;
+    background: var(--green-600);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+
+  .header-title {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .header-title h1 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .header-title p {
+    font-size: 12px;
+    color: var(--text-3);
+  }
+
+  .header-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .header-pct {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green-600);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .header-bar {
+    width: 80px;
+    height: 6px;
+    background: var(--surface-2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .header-bar-fill {
+    height: 100%;
+    background: var(--green-600);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  /* MAIN LAYOUT */
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 4rem;
+  }
+
+  /* STATS */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+
+  .stat-value {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    line-height: 1;
+  }
+
+  /* DAY TABS */
+  .day-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 4px;
+    margin-bottom: 1.25rem;
+  }
+
+  .day-tab {
+    flex: 1;
+    padding: 9px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-2);
+    background: transparent;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .day-tab:hover:not(.active) {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+
+  .day-tab.active {
+    background: var(--green-600);
+    color: white;
+  }
+
+  /* DAY PROGRESS */
+  .day-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+
+  .day-progress-bar {
+    flex: 1;
+    height: 5px;
+    background: var(--surface-2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .day-progress-fill {
+    height: 100%;
+    background: var(--green-200);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  .day-progress-label {
+    font-size: 12px;
+    color: var(--text-3);
+    white-space: nowrap;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* SECTION */
+  .section { margin-bottom: 1.5rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .section-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .section-count {
+    font-size: 12px;
+    color: var(--text-3);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* MODULE LIST */
+  .module-list { display: flex; flex-direction: column; gap: 5px; }
+
+  .module-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 11px 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    user-select: none;
+  }
+
+  .module-item:hover { border-color: var(--border-mid); background: #FDFDF9; }
+  .module-item.done { background: var(--green-50); border-color: var(--green-100); }
+
+  .module-check {
+    width: 20px; height: 20px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border-mid);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    background: var(--surface);
+  }
+
+  .module-item.done .module-check {
+    background: var(--green-600);
+    border-color: var(--green-600);
+  }
+
+  .module-check svg { display: none; }
+  .module-item.done .module-check svg { display: block; }
+
+  .module-body { flex: 1; min-width: 0; }
+
+  .module-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 3px;
+    line-height: 1.4;
+  }
+
+  .module-objective {
+    font-size: 12px;
+    color: var(--text-2);
+    line-height: 1.5;
+    margin-bottom: 7px;
+  }
+
+  .module-links { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 9px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: opacity 0.1s, transform 0.1s;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .link-btn:hover { opacity: 0.8; transform: translateY(-1px); }
+  .link-btn:active { transform: scale(0.97); }
+
+  .link-video { background: var(--teal-50); color: var(--teal-600); border-color: var(--teal-100); }
+  .link-exam  { background: var(--amber-50); color: var(--amber-600); border-color: var(--amber-100); }
+  .link-guide { background: var(--blue-50); color: var(--blue-600); border-color: var(--blue-100); }
+
+  /* OBJECTION GRID */
+  .objection-intro {
+    font-size: 13px;
+    color: var(--text-2);
+    margin-bottom: 12px;
+    line-height: 1.6;
+    padding: 12px 14px;
+    background: var(--coral-50);
+    border-radius: var(--radius);
+    border: 1px solid var(--coral-100);
+  }
+
+  .objection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px;
+  }
+
+  .objection-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 9px 11px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .objection-item:hover { border-color: var(--border-mid); }
+  .objection-item.done { background: var(--coral-50); border-color: var(--coral-100); }
+
+  .obj-check {
+    width: 18px; height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid var(--border-mid);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--surface);
+    transition: all 0.15s;
+  }
+
+  .objection-item.done .obj-check {
+    background: var(--coral-600);
+    border-color: var(--coral-600);
+  }
+
+  .obj-check svg { display: none; }
+  .objection-item.done .obj-check svg { display: block; }
+
+  .objection-text { font-size: 12px; color: var(--text); font-weight: 500; line-height: 1.4; }
+
+  /* HIDDEN */
+  .day-panel { display: none; }
+  .day-panel.active { display: block; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .day-tab { font-size: 12px; padding: 8px 8px; }
+    .objection-grid { grid-template-columns: 1fr 1fr; }
+    .header-bar { display: none; }
+  }
+
+  @media (max-width: 400px) {
+    .objection-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-panel.active { animation: fadeSlideIn 0.2s ease; }
+
+  .module-item, .objection-item {
+    animation: fadeSlideIn 0.15s ease both;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">TB</div>
+    <div class="header-title">
+      <h1>Agent Training Roadmap 2026</h1>
+      <p>TopBliss Solutions Inc.</p>
+    </div>
+    <div class="header-progress">
+      <span class="header-pct" id="hdr-pct">0%</span>
+      <div class="header-bar"><div class="header-bar-fill" id="hdr-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Days</div>
+      <div class="stat-value">3</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Modules</div>
+      <div class="stat-value" id="s-total">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Done</div>
+      <div class="stat-value" id="s-done">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Progress</div>
+      <div class="stat-value" id="s-pct">0%</div>
+    </div>
+  </div>
+
+  <div class="day-tabs">
+    <button class="day-tab active" onclick="switchDay(0)">Day 1 — Tools</button>
+    <button class="day-tab" onclick="switchDay(1)">Day 2 — Sales</button>
+    <button class="day-tab" onclick="switchDay(2)">Day 3 — Objections</button>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="day-panel active" id="panel-0">
+    <div class="day-progress">
+      <div class="day-progress-bar"><div class="day-progress-fill" id="dpb-0" style="width:0%"></div></div>
+      <span class="day-progress-label" id="dpl-0">0 / 0</span>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-badge" style="background:var(--green-50);color:var(--green-600)">Pancake Tools</span>
+        <span class="section-count" id="sc-pancake"></span>
+      </div>
+      <div class="module-list" id="sec-pancake"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-badge" style="background:var(--blue-50);color:var(--blue-600)">Facebook Tools</span>
+        <span class="section-count" id="sc-facebook"></span>
+      </div>
+      <div class="module-list" id="sec-facebook"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-badge" style="background:var(--teal-50);color:var(--teal-600)">POS System</span>
+        <span class="section-count" id="sc-pos"></span>
+      </div>
+      <div class="module-list" id="sec-pos"></div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-panel" id="panel-1">
+    <div class="day-progress">
+      <div class="day-progress-bar"><div class="day-progress-fill" id="dpb-1" style="width:0%"></div></div>
+      <span class="day-progress-label" id="dpl-1">0 / 0</span>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-badge" style="background:var(--amber-50);color:var(--amber-600)">Sales Training</span>
+        <span class="section-count" id="sc-sales"></span>
+      </div>
+      <div class="module-list" id="sec-sales"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-badge" style="background:var(--purple-50);color:var(--purple-600)">Mind Setting</span>
+        <span class="section-count" id="sc-mindset"></span>
+      </div>
+      <div class="module-list" id="sec-mindset"></div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-panel" id="panel-2">
+    <div class="day-progress">
+      <div class="day-progress-bar"><div class="day-progress-fill" id="dpb-2" style="width:0%"></div></div>
+      <span class="day-progress-label" id="dpl-2">0 / 0</span>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-badge" style="background:var(--coral-50);color:var(--coral-600)">Objection Handling</span>
+        <span class="section-count" id="sc-obj"></span>
+      </div>
+      <div class="objection-intro">
+        Objections are normal in sales — the better we handle them, the higher our chances to convert. Click each objection to mark it practiced.
+      </div>
+      <div class="objection-grid" id="sec-objections"></div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const CHECK_SVG = `<svg width="11" height="8" viewBox="0 0 11 8" fill="none"><path d="M1 4L4 7L10 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+const data = {
+  pancake: [
+    { title: "How to use/access Pancake", obj: "Learn basic navigation and functions to manage messages, orders, and customers efficiently.", video: "https://drive.google.com/file/d/1NvKZZK6GhiwNxAScjY5v3hVRmf3-yVDq/view?usp=sharing", exam: "https://forms.gle/NAs7wyCCFr7rYAGf9" },
+    { title: "Pancake 5 Headlines", obj: "Understand the 5 main headlines: Conversation, Orders, Post, Statistics, Settings.", video: "https://drive.google.com/file/d/1QbtZcHb9Ki5Y_PB-Kfz-qJ7Hs_ecoViK/view?usp=sharing" },
+    { title: "What is Filter Tags in Pancake", obj: "Use filter tags to quickly sort and find specific conversations.", video: "https://drive.google.com/file/d/1vPtx5UUNRzm-ydDjnNRS2n-5N-RV3UjC/view?usp=sharing", exam: "https://forms.gle/DKbeWysYBwpbZZS96" },
+    { title: "What is Tagging in Pancake", obj: "Organize customers and conversations for better tracking.", video: "https://drive.google.com/file/d/1QR6K4af0oVnK_tvamqQgkcte4TvA_XAm/view?usp=sharing" },
+    { title: "How to Process Order", obj: "Handle orders correctly to avoid errors and reduce RTS.", video: "https://drive.google.com/file/d/1dfZnBPJIrogXAWMR7bDeDUzvv1OcvAuH/view?usp=sharing" },
+    { title: "What is Conversation Headline", obj: "Main inbox where all customer messages are received and managed.", video: "https://drive.google.com/file/d/1atFq3FGyiSX6CgLkrxkuqbetAXe0dwhw/view?usp=sharing" },
+    { title: "What is Orders Headline", obj: "View and manage all customer orders.", video: "https://drive.google.com/file/d/1atFq3FGyiSX6CgLkrxkuqbetAXe0dwhw/view?usp=sharing" },
+    { title: "What is Post Headline", obj: "Monitor posts and customer engagement.", video: "https://drive.google.com/file/d/1atFq3FGyiSX6CgLkrxkuqbetAXe0dwhw/view?usp=sharing" },
+    { title: "What is Statistics Headline", obj: "Check performance, sales, and reports.", video: "https://drive.google.com/file/d/1atFq3FGyiSX6CgLkrxkuqbetAXe0dwhw/view?usp=sharing" },
+    { title: "What is Settings Headline", obj: "Manage system settings and configurations.", video: "https://drive.google.com/file/d/1atFq3FGyiSX6CgLkrxkuqbetAXe0dwhw/view?usp=sharing" },
+    { title: "How to Create Taggings", obj: "Create tags to improve workflow organization.", video: "https://drive.google.com/file/d/1lCbJ9sC_sjcfW1F9vvDbOn14vaPePASS/view?usp=sharing" },
+    { title: "How to Create Reply Helper", obj: "Create quick replies to respond faster to customers.", video: "https://drive.google.com/file/d/1Npap4cVMuLQiYRGVRLSdYKp_smV7WjMv/view?usp=sharing" },
+  ],
+  facebook: [
+    { title: "How to add Admin to New Pages", obj: "Correct process of adding admins for page management.", video: "https://drive.google.com/file/d/1KFTJQ6RXWcuTjDhYd60Rk6pCNYtgGvoq/view?usp=sharing" },
+    { title: "How to Accept Invites in Facebook", obj: "Accept page or admin invites to gain access to tools.", video: "https://drive.google.com/file/d/1QVFYvpjP0v1hw8Pn_MCsmYYFSqElsDOk/view?usp=sharing" },
+    { title: "How to use Meta if Pancake has errors", obj: "Use Meta as an alternative when Pancake encounters errors.", video: "https://drive.google.com/file/d/1gE2wwYJ_nUqGdtBzC-Y2P9lbWPeqrFUi/view?usp=sharing" },
+  ],
+  pos: [
+    { title: "How to Use POS", obj: "Learn basic POS functions for smooth order processing.", video: "https://drive.google.com/file/d/1WMV5ByZLnHXxrlhBtyUncdk6P83t3179/view?usp=sharing" },
+    { title: "How to see Sales in POS", obj: "Track and review daily sales performance." },
+    { title: "How to add Product in POS", obj: "Add products to keep inventory and listings updated.", video: "https://drive.google.com/file/d/1_4VWaGZgs4zuJE7sY2GB_pBMOzzSH8lz/view?usp=sharing" },
+  ],
+  sales: [
+    { title: "Product Knowledge", obj: "Confidently explain benefits and answer customer questions.", guide: "https://claude.ai/public/artifacts/7743dd4e-8193-4549-8999-e35a0b79ea6f" },
+    { title: "Sales Techniques — How To Convince A Customer To Buy", obj: "Guide customers from inquiry to decision; turn conversations into actual sales.", video: "https://www.youtube.com/watch?v=hwll58BE04k" },
+    { title: "3 Persuasive Words To Close More Sales", obj: "Use the right words to help customers decide faster.", video: "https://www.youtube.com/watch?v=2F2S4D8Pnf0" },
+    { title: "The 3 Most Important Skills In Sales", obj: "Develop listening, probing, and closing for consistent performance.", video: "https://www.youtube.com/watch?v=QQQe1aDy4fE&t=403s" },
+    { title: "Clients Say: 'How much is it?' — And You Say…", obj: "Respond to price questions in a way that keeps the sale alive.", video: "https://www.youtube.com/watch?v=6syYWh7FwA0" },
+    { title: "When Client Says 'Your Price Is Too High'", obj: "Handle price objections and communicate product value clearly.", video: "https://www.youtube.com/watch?v=1ODImV0WIGU" },
+    { title: "27 Words To Avoid In Sales", obj: "Avoid words that turn off customers and reduce closing chances.", video: "https://www.youtube.com/watch?v=UfQS91N7gn0" },
+    { title: "How To Sell Anything With an Irresistible Offer", obj: "Create offers that are hard to refuse and make closing easier.", video: "https://www.youtube.com/watch?v=uUkRJ1FyTL0" },
+    { title: "4 Types of Customers and How to Sell to Them", obj: "Identify customer types and adjust your approach for effective selling.", video: "https://www.youtube.com/watch?v=F2uj9eApGXI" },
+    { title: "Most Salespeople Make This Dumb Mistake", obj: "Avoid common mistakes that lead to lost sales opportunities.", video: "https://www.youtube.com/watch?v=gq27ygVQ2dc" },
+    { title: "High Ticket Closer", obj: "Build confidence and skills in closing higher-value sales.", video: "https://drive.google.com/file/d/1i2CCfabOxokzjNqCa70fz1RM8Z8yfcQy/view" },
+    { title: "How To Handle Objections With The '3 F's' Method", obj: "Apply a simple method to handle objections and keep conversations moving.", video: "https://www.youtube.com/watch?v=IkUdrV2bx3o&t=324s" },
+    { title: "Pricing, Price Objections, And Lying Customers", obj: "Manage doubts and objections while maintaining trust.", video: "https://www.youtube.com/watch?v=9wCIZpO0t5w" },
+    { title: "7 Most Common Sales Objections", obj: "Prepare for common objections and respond effectively to close more sales.", video: "https://youtu.be/hzjIigX8nHQ" },
+  ],
+  mindset: [
+    { title: "Empowerment Mindset", obj: "Develop a strong sales mindset and build discipline to consistently hit targets.", video: "https://www.youtube.com/watch?v=RuSCuhY_FXc" },
+    { title: "How to Speak and Sell to Anyone", obj: "Improve communication skills to connect with any type of customer.", video: "https://www.youtube.com/watch?v=afp9hr4ltH0" },
+    { title: "How to Build a Great Sales Team", obj: "Understand what makes a high-performing sales team.", video: "https://www.youtube.com/watch?v=15rggcgdV_I" },
+    { title: "How to Improve Work Ethic", obj: "Build habits and discipline that drive consistent performance.", video: "https://www.youtube.com/watch?v=F-_qOh5tKrI" },
+    { title: "The Golden Rule of Selling", obj: "Internalize the core principle that separates average from top sellers.", video: "https://www.youtube.com/shorts/n2s1h4ReE_Y" },
+    { title: "Sales Training — Managing Your Time", obj: "Structure your day to maximize productivity and sales output.", video: "https://www.youtube.com/watch?v=zgGspra6KBU" },
+  ],
+  objections: [
+    "Ang mahal naman ng produkto niyo!","Wala pa akong pera!","Next week pa ang pera ko!",
+    "Legit ba ang produkto niyo?","Bakit mas mura sa iba?","Baka mahal naman iyan!",
+    "Pag-isipan ko pa ang price","Scam kayo / hindi gumana sa akin","Nakasubok na ako dati",
+    "Mamaya ko ibibigay details","Wala JNT sa area","Tsaka na lang",
+    "May vitamins na ako","Hindi ko kailangan","Hindi ako interesado",
+    "May iba na akong ginagamit","Mukhang complicated","Wala akong oras",
+    "Wala pa akong decision","Bakit kayo vs iba?","Hindi sure kung right solution",
+    "Hindi pa naririnig dati","May supplier na ako","Mahal",
+    "Gusto mag-research","Wala info","Di gusto lasa",
+    "Bakit hindi normal coffee","Baka hindi effective","Baka may side effects",
+    "Paano malalaman kung effective"
+  ]
+};
+
+const sectionDayMap = {
+  pancake: 0, facebook: 0, pos: 0,
+  sales: 1, mindset: 1,
+  obj: 2
+};
+
+const state = {};
+
+function loadState() {
+  try {
+    const s = localStorage.getItem('tb_roadmap_2026');
+    if (s) Object.assign(state, JSON.parse(s));
+  } catch(e) {}
+}
+
+function saveState() {
+  try { localStorage.setItem('tb_roadmap_2026', JSON.stringify(state)); } catch(e) {}
+}
+
+function key(sec, idx) { return `${sec}_${idx}`; }
+
+function toggle(k, el) {
+  state[k] = !state[k];
+  el.classList.toggle('done', !!state[k]);
+  saveState();
+  updateProgress();
+}
+
+function renderModule(item, sec, idx) {
+  const k = key(sec, idx);
+  const done = !!state[k];
+  const div = document.createElement('div');
+  div.className = 'module-item' + (done ? ' done' : '');
+  div.style.animationDelay = (idx * 0.03) + 's';
+
+  let links = '';
+  if (item.video) links += `<a class="link-btn link-video" href="${item.video}" target="_blank" onclick="event.stopPropagation()">▶ Watch</a>`;
+  if (item.exam)  links += `<a class="link-btn link-exam" href="${item.exam}" target="_blank" onclick="event.stopPropagation()">✎ Exam</a>`;
+  if (item.guide) links += `<a class="link-btn link-guide" href="${item.guide}" target="_blank" onclick="event.stopPropagation()">⊕ Guide</a>`;
+
+  div.innerHTML = `
+    <div class="module-check">${CHECK_SVG}</div>
+    <div class="module-body">
+      <div class="module-title">${item.title}</div>
+      ${item.obj ? `<div class="module-objective">${item.obj}</div>` : ''}
+      ${links ? `<div class="module-links">${links}</div>` : ''}
+    </div>
+  `;
+  div.addEventListener('click', () => toggle(k, div));
+  return div;
+}
+
+function renderObjections() {
+  const container = document.getElementById('sec-objections');
+  data.objections.forEach((obj, idx) => {
+    const k = key('obj', idx);
+    const done = !!state[k];
+    const div = document.createElement('div');
+    div.className = 'objection-item' + (done ? ' done' : '');
+    div.style.animationDelay = (idx * 0.02) + 's';
+    div.innerHTML = `<div class="obj-check">${CHECK_SVG}</div><span class="objection-text">${obj}</span>`;
+    div.addEventListener('click', () => toggle(k, div));
+    container.appendChild(div);
+  });
+}
+
+function countSec(sec, n) {
+  let done = 0;
+  for (let i = 0; i < n; i++) if (state[key(sec, i)]) done++;
+  return done;
+}
+
+function updateProgress() {
+  const secs = [
+    { id: 'pancake', n: data.pancake.length },
+    { id: 'facebook', n: data.facebook.length },
+    { id: 'pos', n: data.pos.length },
+    { id: 'sales', n: data.sales.length },
+    { id: 'mindset', n: data.mindset.length },
+    { id: 'obj', n: data.objections.length },
+  ];
+
+  let grandTotal = 0, grandDone = 0;
+  const dayTotals = [0,0,0], dayDones = [0,0,0];
+
+  secs.forEach(s => {
+    const done = countSec(s.id, s.n);
+    const d = sectionDayMap[s.id];
+    dayTotals[d] += s.n;
+    dayDones[d] += done;
+    grandTotal += s.n;
+    grandDone += done;
+
+    const sc = document.getElementById('sc-' + s.id);
+    if (sc) sc.textContent = `${done}/${s.n}`;
+  });
+
+  for (let d = 0; d < 3; d++) {
+    const pct = dayTotals[d] ? Math.round(dayDones[d]/dayTotals[d]*100) : 0;
+    document.getElementById('dpb-'+d).style.width = pct+'%';
+    document.getElementById('dpl-'+d).textContent = `${dayDones[d]} / ${dayTotals[d]}`;
+  }
+
+  const totalPct = grandTotal ? Math.round(grandDone/grandTotal*100) : 0;
+  document.getElementById('s-total').textContent = grandTotal;
+  document.getElementById('s-done').textContent = grandDone;
+  document.getElementById('s-pct').textContent = totalPct+'%';
+  document.getElementById('hdr-pct').textContent = totalPct+'%';
+  document.getElementById('hdr-bar').style.width = totalPct+'%';
+}
+
+let currentDay = 0;
+
+function switchDay(d) {
+  document.querySelectorAll('.day-panel').forEach((p, i) => p.classList.toggle('active', i === d));
+  document.querySelectorAll('.day-tab').forEach((t, i) => t.classList.toggle('active', i === d));
+  currentDay = d;
+}
+
+function init() {
+  loadState();
+
+  const secMap = [
+    { id: 'pancake', items: data.pancake },
+    { id: 'facebook', items: data.facebook },
+    { id: 'pos', items: data.pos },
+    { id: 'sales', items: data.sales },
+    { id: 'mindset', items: data.mindset },
+  ];
+
+  secMap.forEach(({ id, items }) => {
+    const container = document.getElementById('sec-' + id);
+    items.forEach((item, idx) => container.appendChild(renderModule(item, id, idx)));
+  });
+
+  renderObjections();
+  updateProgress();
+}
+
+init();
+</script>
+</body>
+</html>
